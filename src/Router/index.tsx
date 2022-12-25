@@ -8,16 +8,31 @@ import React, { lazy } from "react";
 import type { RouteObject } from "react-router";
 import { Navigate } from "react-router";
 
-const Main = lazy(() => import("src/views/Main"));
+const PersonalCenter = lazy(() => import("src/views/PersonalCenter"));
+const LowCode = lazy(() => import("src/views/LowCode"));
+const FlowDesign = lazy(() => import("src/views/FlowDesign"));
+const DataSource = lazy(() => import("src/views/DataSource"));
 
 const routes: RouteObject[] = [
   {
     path: "/",
-    element: <Navigate to={"/main"} />
+    element: <Navigate to={"/data-source"} />
   },
   {
-    path: "/main",
-    element: <Main />
+    path: "/data-source",
+    element: <DataSource />
+  },
+  {
+    path: "/personal-center",
+    element: <PersonalCenter />
+  },
+  {
+    path: "/low-code",
+    element: <LowCode />
+  },
+  {
+    path: "/flow-design",
+    element: <FlowDesign />
   }
 ];
 
