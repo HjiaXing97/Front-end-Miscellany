@@ -34,7 +34,7 @@ const AppMenu: FC<IProps> = () => {
       <Menu
         items={data}
         mode={"vertical"}
-        theme={"dark"}
+        theme={"light"}
         selectedKeys={selectedKeys}
         onClick={handleItemClick}
       ></Menu>

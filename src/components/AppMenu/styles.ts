@@ -9,6 +9,6 @@ export const Logo = styled.div`
   height: 64px;
   width: 100%;
   text-align: center;
-  color: #fff;
+  color: #000;
   line-height: 64px;
 `;

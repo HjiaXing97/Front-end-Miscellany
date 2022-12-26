@@ -9,7 +9,7 @@ function App() {
   return (
     <AppWrap>
       <Layout>
-        <Layout.Sider width={264}>
+        <Layout.Sider width={264} theme={"light"}>
           <AppMenu />
         </Layout.Sider>
         <Layout>
