@@ -5,8 +5,8 @@
  */
 
 import type { FC, ReactNode } from "react";
-import React, { memo } from "react";
-import { useNavigate } from "react-router";
+import React, { memo, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 
 import { Logo, MenuWrap } from "./styles";
 import { Menu } from "antd";
@@ -17,7 +17,14 @@ interface IProps {
 }
 
 const AppMenu: FC<IProps> = () => {
+  const [selectedKeys, useSelectedKeys] = useState<string[]>([]);
   const navigate = useNavigate();
+  const location = useLocation();
+  const { pathname } = location;
+
+  useEffect(() => {
+    useSelectedKeys([pathname]);
+  }, [pathname]);
   const handleItemClick = ({ key }) => {
     navigate(key);
   };
@@ -28,6 +35,7 @@ const AppMenu: FC<IProps> = () => {
         items={data}
         mode={"vertical"}
         theme={"dark"}
+        selectedKeys={selectedKeys}
         onClick={handleItemClick}
       ></Menu>
     </MenuWrap>

@@ -11,7 +11,7 @@ interface IProps {
   children?: ReactNode;
 }
 
-const LowCode: FC<IProps> = () => {
-  return <>LowCode</>;
+const FlowDesign: FC<IProps> = () => {
+  return <>FlowDesign</>;
 };
-export default memo(LowCode);
+export default memo(FlowDesign);

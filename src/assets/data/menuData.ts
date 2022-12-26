@@ -9,7 +9,7 @@ interface IMenuData {
 
 const data: IMenuData[] = [
   {
-    key: "data-source",
+    key: "/data-source",
     label: "数据源配置"
   },
   {
@@ -17,11 +17,11 @@ const data: IMenuData[] = [
     label: "表单设计"
   },
   {
-    key: "flow-design",
+    key: "/flow-design",
     label: "流程设计"
   },
   {
-    key: "personal-center",
+    key: "/personal-center",
     label: "个人中心"
   }
 ];
