@@ -9,6 +9,9 @@ import React, { memo } from "react";
 import FormItemRender from "src/components/FormItemRender";
 import { IFormTypes } from "src/types/formTypes";
 import { Button, Form } from "antd";
+import { FormItemWarp } from "./styles";
+import { useAppDispatch } from "src/store/hooks";
+import { itemInfoActions } from "src/store/modules/lowCode";
 
 interface IProps {
   formList?: IFormTypes[];
@@ -18,9 +21,15 @@ interface IProps {
 const DynamicForm: FC<IProps> = (props) => {
   const { formList } = props;
   const [form] = Form.useForm();
+  const dispatch = useAppDispatch();
 
   const onFinish = (values) => {
     console.log(values);
+  };
+
+  const handleItemClick = (e, item: IFormTypes) => {
+    e.preventDefault();
+    dispatch(itemInfoActions(item));
   };
   return (
     <>
@@ -31,7 +40,14 @@ const DynamicForm: FC<IProps> = (props) => {
         wrapperCol={{ span: 20 }}
       >
         {formList?.map((node) => {
-          return <FormItemRender key={node.uuid} itemInfo={node} />;
+          return (
+            <FormItemWarp
+              key={node.uuid}
+              onClick={(event) => handleItemClick(event, node)}
+            >
+              <FormItemRender itemInfo={node} />
+            </FormItemWarp>
+          );
         })}
         <Form.Item>
           <Button type={"primary"} htmlType='submit'>

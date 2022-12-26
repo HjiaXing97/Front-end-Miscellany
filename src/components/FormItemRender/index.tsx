@@ -6,8 +6,8 @@
 
 import type { FC, ReactNode } from "react";
 import React, { memo } from "react";
-import { Form, Input, Select } from "antd";
 import { IFormTypes } from "src/types/formTypes";
+import { FormItem } from "./FormItem";
 
 interface IProps {
   itemInfo: IFormTypes;
@@ -16,26 +16,10 @@ interface IProps {
 
 const FormItemRender: FC<IProps> = (props) => {
   const { itemInfo } = props;
-  const FormItem = {
-    input: (itemInfo: IFormTypes) => {
-      const { label, uuid } = itemInfo;
-      return (
-        <Form.Item label={label} name={uuid}>
-          <Input />
-        </Form.Item>
-      );
-    },
-    select: (itemInfo: IFormTypes) => {
-      const { label, uuid } = itemInfo;
-      return (
-        <Form.Item label={label} name={uuid}>
-          <Select />
-        </Form.Item>
-      );
-    }
-  };
+
   const { key } = itemInfo;
   const render = FormItem[key];
+
   return <>{render(itemInfo)}</>;
 };
 export default memo(FormItemRender);
