@@ -1,27 +1,11 @@
-import React, { Suspense } from "react";
-import { useRoutes } from "react-router-dom";
-import routes from "src/Router";
-import { Layout } from "antd";
-import { AppWrap } from "./styled";
-import AppMenu from "src/components/AppMenu";
+import React, { memo } from "react";
+import Main from "src/views/Main";
 
-function App() {
+const App = () => {
   return (
-    <AppWrap>
-      <Layout>
-        <Layout.Sider width={264} theme={"light"}>
-          <AppMenu />
-        </Layout.Sider>
-        <Layout>
-          <Layout.Header>Header</Layout.Header>
-          <Layout.Content>
-            <Suspense fallback={"请稍后"}>{useRoutes(routes)}</Suspense>
-          </Layout.Content>
-          <Layout.Footer>Footer</Layout.Footer>
-        </Layout>
-      </Layout>
-    </AppWrap>
+    <>
+      <Main />
+    </>
   );
-}
-
-export default App;
+};
+export default memo(App);

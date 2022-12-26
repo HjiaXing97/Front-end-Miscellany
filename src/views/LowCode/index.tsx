@@ -6,12 +6,28 @@
 
 import type { FC, ReactNode } from "react";
 import React, { memo } from "react";
+import ComList from "./component/comList";
+import Render from "./component/Render";
+import FormOptions from "./component/FormOptions";
+import { LowCodeWarp } from "./styles";
 
 interface IProps {
   children?: ReactNode;
 }
 
 const LowCode: FC<IProps> = () => {
-  return <>LowCode</>;
+  return (
+    <LowCodeWarp>
+      <div className={"ComList"}>
+        <ComList />
+      </div>
+      <div className={"Render"}>
+        <Render />
+      </div>
+      <div className={"FormOptions"}>
+        <FormOptions />
+      </div>
+    </LowCodeWarp>
+  );
 };
 export default memo(LowCode);

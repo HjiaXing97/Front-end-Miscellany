@@ -1,10 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-
-import mainSlice from "./modules/main";
+import lowCodeSlice from "./modules/lowCode";
 
 const store = configureStore({
   reducer: {
-    mainSlice
+    lowCodeSlice
   }
 });
 
