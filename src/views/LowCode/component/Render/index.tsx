@@ -40,7 +40,7 @@ const Render: FC<IProps> = () => {
   };
   return (
     <RenderWarp onDragOver={(e) => onDragOver(e)} onDrop={(e) => onDrop(e)}>
-      <DynamicForm formList={formList} />
+      <DynamicForm formList={formList} isEdit={true} />
     </RenderWarp>
   );
 };

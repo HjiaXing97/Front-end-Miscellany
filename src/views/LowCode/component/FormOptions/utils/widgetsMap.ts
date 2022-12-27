@@ -1,3 +1,6 @@
-import { baseInput } from "./baseWidgets";
+import { BaseInput, BaseSwitch } from "./baseWidgets";
 
-export const widgetsMap = new Map([["baseInput", baseInput]]);
+export const widgetsMap = new Map([
+  ["BaseInput", BaseInput],
+  ["BaseSwitch", BaseSwitch]
+]);

@@ -1,10 +1,13 @@
-import createUUID from "src/utils/createUUID";
-import { IItemTypes } from "../types";
+import { IFormTypes } from "src/types/formTypes";
+import UseCreateCom from "src/hooks/useCreateCom";
 
-export default function (key, label): IItemTypes {
+export default function (comKey: string, comLabel: string): IFormTypes {
+  const { key, label, uuid, attribute } = new UseCreateCom(comKey, comLabel);
+
   return {
     key,
     label,
-    uuid: `${key}-${createUUID()}`
+    uuid,
+    attribute
   };
 }

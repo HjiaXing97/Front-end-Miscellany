@@ -5,7 +5,7 @@
  */
 
 import type { FC, ReactNode } from "react";
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import FormItemRender from "src/components/FormItemRender";
 import { IFormTypes } from "src/types/formTypes";
 import { Button, Form } from "antd";
@@ -16,9 +16,13 @@ import { itemInfoActions } from "src/store/modules/lowCode";
 interface IProps {
   formList?: IFormTypes[];
   children?: ReactNode;
+  isEdit?: boolean;
 }
 
 const DynamicForm: FC<IProps> = (props) => {
+  const { isEdit } = props;
+
+  const [current, setCurrent] = useState<number | null>(null);
   const { formList } = props;
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
@@ -27,7 +31,8 @@ const DynamicForm: FC<IProps> = (props) => {
     console.log(values);
   };
 
-  const handleItemClick = (e, item: IFormTypes) => {
+  const handleItemClick = (e, item: IFormTypes, index: number) => {
+    setCurrent(index);
     e.preventDefault();
     dispatch(itemInfoActions(item));
   };
@@ -39,21 +44,24 @@ const DynamicForm: FC<IProps> = (props) => {
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 20 }}
       >
-        {formList?.map((node) => {
+        {formList?.map((node, index) => {
           return (
             <FormItemWarp
+              className={index === current ? "active" : ""}
               key={node.uuid}
-              onClick={(event) => handleItemClick(event, node)}
+              onClick={(event) => handleItemClick(event, node, index)}
             >
               <FormItemRender itemInfo={node} />
             </FormItemWarp>
           );
         })}
-        <Form.Item>
-          <Button type={"primary"} htmlType='submit'>
-            提交
-          </Button>
-        </Form.Item>
+        {!isEdit && (
+          <Form.Item>
+            <Button type={"primary"} htmlType='submit'>
+              提交
+            </Button>
+          </Form.Item>
+        )}
       </Form>
     </>
   );

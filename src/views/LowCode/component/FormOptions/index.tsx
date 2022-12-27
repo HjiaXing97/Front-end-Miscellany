@@ -12,6 +12,8 @@ import { OptionsItem, OptionsLabel } from "./styles";
 import { useAppDispatch, useAppSelector } from "src/store/hooks";
 import { addFormActions, itemInfoActions } from "src/store/modules/lowCode";
 import type { IFormTypes } from "src/types/formTypes";
+import getComponentAttr from "./utils/getComponentAttr";
+import { cloneDeep } from "lodash";
 
 interface IProps {
   children?: ReactNode;
@@ -20,13 +22,18 @@ interface IProps {
 const FormOptions: FC<IProps> = () => {
   const dispatch = useAppDispatch();
   const { itemInfo, formList } = useAppSelector((state) => ({
-    itemInfo: state.lowCodeSlice.itemInfo,
+    itemInfo: state.lowCodeSlice.itemInfo as IFormTypes,
     formList: state.lowCodeSlice.formList
   }));
 
-  const optionsChange = (e, label) => {
-    const param = { ...itemInfo } as IFormTypes;
-    param[label] = e;
+  const optionsChange = (e, label, parentLevel?: string) => {
+    const param = cloneDeep(itemInfo) as IFormTypes;
+
+    if (parentLevel) {
+      param[parentLevel][label] = e;
+    } else {
+      param[label] = e;
+    }
     const uuid = param?.uuid;
     const index = formList.findIndex((node: IFormTypes) => node.uuid === uuid);
     const arr: IFormTypes[] = [...formList];
@@ -39,15 +46,16 @@ const FormOptions: FC<IProps> = () => {
   return (
     <>
       {config.map((node, index) => {
-        const { widgets, label } = node;
+        const { widgets, label, field, parentLevel } = node;
         const Com = widgetsMap.get(widgets) as React.ElementType;
+        const value = getComponentAttr(itemInfo, field, parentLevel);
         return (
           <OptionsItem key={index.toString()}>
             <OptionsLabel>{label}</OptionsLabel>
             <Com
-              onChange={(e) => optionsChange(e, label)}
+              onChange={(e) => optionsChange(e, field, parentLevel)}
               {...node}
-              value={itemInfo[label]}
+              value={value}
             />
           </OptionsItem>
         );

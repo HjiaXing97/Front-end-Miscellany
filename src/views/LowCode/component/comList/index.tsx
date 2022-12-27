@@ -7,7 +7,8 @@
 import type { FC, ReactNode } from "react";
 import React, { memo } from "react";
 import ElementList from "../../data/ElementList";
-import { ComItem, ComWarp } from "./styles";
+import { CompontName, ComWarp, Iconfont, Item } from "./styles";
+import { iconMap } from "./utils/iconMap";
 
 interface IProps {
   children?: ReactNode;
@@ -25,14 +26,20 @@ const ComList: FC<IProps> = () => {
   return (
     <ComWarp>
       {ElementList.map((node) => {
+        const icon = iconMap.get(node.key);
+
         return (
-          <ComItem
+          <Item
             key={node.key}
             draggable={true}
             onDragStart={(e) => onDragStart(e, node)}
           >
-            {node.label}
-          </ComItem>
+            <Iconfont
+              className='iconfont'
+              dangerouslySetInnerHTML={{ __html: icon as string }}
+            ></Iconfont>
+            <CompontName>{node.label}</CompontName>
+          </Item>
         );
       })}
     </ComWarp>
